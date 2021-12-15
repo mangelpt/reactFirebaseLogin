@@ -4,6 +4,7 @@ import {URl_AUTH, URL_SING_IN} from "../../Constants";
 import {useHTTP} from "../../hooks/useFetch";
 import useForm from "../../hooks/useForm";
 import AuthContext from "../../store/AuthContext";
+import {useHistory} from "react-router-dom";
 
 const AuthForm = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -11,7 +12,7 @@ const AuthForm = () => {
     const [formData, inputBlurHandler, emailHandler, passwordHandler, reset] = useForm();
     const formDataIsValid = formData.emailIsValid && formData.passwordIsValid;
     const authCtx = useContext(AuthContext);
-
+  const history=useHistory();
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
     };
@@ -38,6 +39,7 @@ const AuthForm = () => {
             } else {
                 alert(` user ${data.email} created`);
             }
+            history.replace("/");
         }
     }
 
