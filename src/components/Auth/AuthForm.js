@@ -12,7 +12,7 @@ const AuthForm = () => {
     const [formData, inputBlurHandler, emailHandler, passwordHandler, reset] = useForm();
     const formDataIsValid = formData.emailIsValid && formData.passwordIsValid;
     const authCtx = useContext(AuthContext);
-  const history=useHistory();
+    const history = useHistory();
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
     };
@@ -35,7 +35,8 @@ const AuthForm = () => {
         } else {
             if (isLogin) {
                 alert(` welcome ${data.email} `);
-                authCtx.login(data.idToken)
+                const expirationTime = new Date(new Date().getTime() + +data.expiresIn * 1000);
+                authCtx.login(data.idToken, expirationTime);
             } else {
                 alert(` user ${data.email} created`);
             }
